@@ -1,14 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace LocadoraFilmesApi.Service.Application.Dtos
 {
     [ExcludeFromCodeCoverage]
     public class ClienteDto
     {
-        [Required]
+        public int Id { get; set; }
         public string Nome { get; set; }
-        [Required]
         public string Cpf { get; set; }
         public DateTime DataNascimento { get; set; }
     }

@@ -9,6 +9,7 @@ namespace LocadoraFilmesApi.Service.CrossCutting.IoC
         public static void ConfigureServices(this IServiceCollection services)
         {
             services.AddScoped<IClienteService, ClienteService>();
+            services.AddScoped<IFilmeService, FilmeService>();
         }
     }
 }

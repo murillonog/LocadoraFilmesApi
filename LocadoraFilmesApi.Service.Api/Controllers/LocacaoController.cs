@@ -1,6 +1,5 @@
 ﻿using LocadoraFilmesApi.Service.Application.Dtos;
 using LocadoraFilmesApi.Service.Application.Exceptions;
-using LocadoraFilmesApi.Service.Application.Interfaces;
 using LocadoraFilmesApi.Service.Application.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics.CodeAnalysis;
@@ -8,22 +7,22 @@ using System.Diagnostics.CodeAnalysis;
 namespace LocadoraFilmesApi.Service.Api.Controllers
 {
     [ExcludeFromCodeCoverage]
-    [Route("api/cliente")]
+    [Route("api/locacao")]
     [ApiController]
-    public class ClienteController : ControllerBase
+    public class LocacaoController : ControllerBase
     {
-        private readonly IClienteService _clienteService;
+        private readonly ILocacaoService _locacaoService;
 
-        public ClienteController(IClienteService clienteService)
+        public LocacaoController(ILocacaoService locacaoService)
         {
-            _clienteService = clienteService;
+            _locacaoService = locacaoService;
         }
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(int))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(List<string>))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(List<string>))]
-        public async Task<ActionResult> Add([FromBody] ClienteCreate clienteCreate)
+        public async Task<ActionResult> Add([FromBody] LocacaoCreate locacaoCreate)
         {
             try
             {
@@ -32,7 +31,7 @@ namespace LocadoraFilmesApi.Service.Api.Controllers
                     return BadRequest();
                 }
 
-                var response = await _clienteService.Add(clienteCreate);
+                var response = await _locacaoService.Add(locacaoCreate);
                 return Created("Created", response);
             }
             catch (ServiceException exception)
@@ -42,10 +41,10 @@ namespace LocadoraFilmesApi.Service.Api.Controllers
         }
 
         [HttpPut]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ClienteDto))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(LocacaoDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(List<string>))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(List<string>))]
-        public async Task<ActionResult> Put(int id, [FromBody] ClienteUpdate clienteUpdate)
+        public async Task<ActionResult> Put(int id, [FromBody] LocacaoUpdate locacaoUpdate)
         {
             try
             {
@@ -54,7 +53,7 @@ namespace LocadoraFilmesApi.Service.Api.Controllers
                     return BadRequest();
                 }
 
-                var response = await _clienteService.Update(id, clienteUpdate);
+                var response = await _locacaoService.Update(id, locacaoUpdate);
                 return Accepted(response);
             }
             catch (ServiceException exception)
@@ -71,7 +70,7 @@ namespace LocadoraFilmesApi.Service.Api.Controllers
         {
             try
             {
-                await _clienteService.Delete(id);
+                await _locacaoService.Delete(id);
                 return NoContent();
             }
             catch (ServiceException exception)
@@ -81,14 +80,14 @@ namespace LocadoraFilmesApi.Service.Api.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ClienteDto>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<LocacaoDto>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(List<string>))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(List<string>))]
-        public async Task<ActionResult<IEnumerable<ClienteDto>>> Get()
+        public async Task<ActionResult<IEnumerable<LocacaoDto>>> Get()
         {
             try
             {
-                var response = await _clienteService.Get();
+                var response = await _locacaoService.Get();
                 return Ok(response);
             }
             catch (ServiceException exception)
@@ -98,14 +97,14 @@ namespace LocadoraFilmesApi.Service.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ClienteDto))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(LocacaoDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(List<string>))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(List<string>))]
-        public async Task<ActionResult<ClienteDto>> GetById(int id)
+        public async Task<ActionResult<LocacaoDto>> GetById(int id)
         {
             try
             {
-                var response = await _clienteService.GetById(id);
+                var response = await _locacaoService.GetById(id);
                 return Ok(response);
             }
             catch (ServiceException exception)

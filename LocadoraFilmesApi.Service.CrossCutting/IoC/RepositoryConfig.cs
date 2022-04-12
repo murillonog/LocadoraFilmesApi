@@ -9,6 +9,7 @@ namespace LocadoraFilmesApi.Service.CrossCutting.IoC
         public static void ConfigureRepository(this IServiceCollection services)
         {
             services.AddScoped<IClienteRepository, ClienteRepository>();
+            services.AddScoped<IFilmeRepository, FilmeRepository>();
         }
     }
 }

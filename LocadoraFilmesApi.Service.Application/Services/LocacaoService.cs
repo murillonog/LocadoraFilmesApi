@@ -12,34 +12,34 @@ using Microsoft.Extensions.Logging;
 
 namespace LocadoraFilmesApi.Service.Application.Services
 {
-    public class ClienteService : IClienteService
+    public class LocacaoService : ILocacaoService
     {
-        private readonly ILogger<ClienteService> _logger;
+        private readonly ILogger<LocacaoService> _logger;
         private readonly IMapper _mapper;
-        private readonly IClienteRepository _clienteRepository;
+        private readonly ILocacaoRepository _locacaoRepository;
 
-        public ClienteService(
-            ILogger<ClienteService> logger, 
+        public LocacaoService(
+            ILogger<LocacaoService> logger, 
             IMapper mapper, 
-            IClienteRepository clienteRepository)
+            ILocacaoRepository locacaoRepository)
         {
             _logger = logger;
             _mapper = mapper;
-            _clienteRepository = clienteRepository;
+            _locacaoRepository = locacaoRepository;
         }
 
-        public async Task<int> Add(ClienteCreate clienteCreate)
+        public async Task<int> Add(LocacaoCreate locacaoCreate)
         {
             try
             {
-                var cliente = _mapper.Map<Cliente>(clienteCreate);
-                var entity = await _clienteRepository.Add(cliente);
+                var locacao = _mapper.Map<Locacao>(locacaoCreate);
+                var entity = await _locacaoRepository.Add(locacao);
                 return entity.Id;
             }
             catch (Exception exception)
             {
-                var errMsg = new ErrorMessage("01.01", "Erro ao inserir o cliente no banco de dados");
-                _logger.LogError(exception, HanddleError<object>.Handle(clienteCreate, exception, errMsg));
+                var errMsg = new ErrorMessage("01.01", "Erro ao inserir o locação no banco de dados");
+                _logger.LogError(exception, HanddleError<object>.Handle(locacaoCreate, exception, errMsg));
                 throw new ServiceException(errMsg.Code, errMsg.Message, exception);
             }
         }
@@ -48,70 +48,70 @@ namespace LocadoraFilmesApi.Service.Application.Services
         {
             try
             {
-                if (await _clienteRepository.GetById(id) == null)
+                if (await _locacaoRepository.GetById(id) == null)
                 {
-                    throw new KeyNotFoundException("Cliente não existe!");
+                    throw new KeyNotFoundException("Locação não existe!");
                 }
 
-                await _clienteRepository.Delete(id);
+                await _locacaoRepository.Delete(id);
             }
             catch (Exception exception)
             {
-                var errMsg = new ErrorMessage("01.02", "Erro ao deletar o cliente do banco de dados");
+                var errMsg = new ErrorMessage("01.01", "Erro ao deletar o locação no banco de dados");
                 _logger.LogError(exception, HanddleError<object>.Handle(id, exception, errMsg));
                 throw new ServiceException(errMsg.Code, errMsg.Message, exception);
             }
         }
 
-        public async Task<IEnumerable<ClienteDto>> Get()
+        public async Task<IEnumerable<LocacaoDto>> Get()
         {
             try
             {
-                var list = await _clienteRepository.GetAll();
-                return _mapper.Map<IEnumerable<ClienteDto>>(list);
+                var list = await _locacaoRepository.GetAll();
+                return _mapper.Map<IEnumerable<LocacaoDto>>(list);
             }
             catch (Exception exception)
             {
-                var errMsg = new ErrorMessage("01.03", "Erro ao buscar a lista de clientes do banco de dados");
+                var errMsg = new ErrorMessage("01.01", "Erro ao buscar todas locações no banco de dados");
                 _logger.LogError(exception, HanddleError<object>.Handle(null, exception, errMsg));
                 throw new ServiceException(errMsg.Code, errMsg.Message, exception);
             }
         }
 
-        public async Task<ClienteDto> GetById(int id)
+        public async Task<LocacaoDto> GetById(int id)
         {
             try
             {
-                var cliente = await _clienteRepository.GetById(id);
-                return _mapper.Map<ClienteDto>(cliente);
+                var locacao = await _locacaoRepository.GetById(id);
+                return _mapper.Map<LocacaoDto>(locacao);
             }
             catch (Exception exception)
             {
-                var errMsg = new ErrorMessage("01.04", "Erro ao buscar o cliente por id do banco de dados");
+                var errMsg = new ErrorMessage("01.01", "Erro ao buscar a locação no banco de dados");
                 _logger.LogError(exception, HanddleError<object>.Handle(id, exception, errMsg));
                 throw new ServiceException(errMsg.Code, errMsg.Message, exception);
             }
         }
 
-        public async Task<ClienteDto> Update(int id, ClienteUpdate clienteUpdate)
+        public async Task<LocacaoDto> Update(int id, LocacaoUpdate locacaoUpdate)
         {
             try
             {
-                var cliente = await _clienteRepository.GetById(id);
-                if (cliente == null)
+                var locacao = await _locacaoRepository.GetById(id);
+                if (locacao == null)
                 {
                     throw new KeyNotFoundException("Cliente não existe!");
                 }
 
-                cliente.ToUpdate(clienteUpdate);
+                locacao.ToUpdate(locacaoUpdate);
 
-                var entity = await _clienteRepository.Update(cliente);
-                return _mapper.Map<ClienteDto>(entity);
+                var entity = await _locacaoRepository.Update(locacao);
+                return _mapper.Map<LocacaoDto>(entity);
             }
             catch (Exception exception)
             {
-                var errMsg = new ErrorMessage("01.05", "Erro ao atualizar o cliente no banco de dados");
-                _logger.LogError(exception, HanddleError<object>.Handle(clienteUpdate, exception, errMsg));
+                var errMsg = new ErrorMessage("01.01", "Erro ao atualizar a locação no banco de dados");
+                _logger.LogError(exception, HanddleError<object>.Handle(locacaoUpdate, exception, errMsg));
                 throw new ServiceException(errMsg.Code, errMsg.Message, exception);
             }
         }

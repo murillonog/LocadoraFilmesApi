@@ -1,12 +1,12 @@
 ﻿using LocadoraFilmesApi.Service.Application.Dtos;
-using System.Diagnostics.CodeAnalysis;
+using LocadoraFilmesApi.Service.Application.ViewModel;
 
 namespace LocadoraFilmesApi.Service.Application.Interfaces
 {
     public interface IClienteService
     {
-        Task<int> Add(ClienteDto clienteDto);
-        Task<ClienteDto> Update(int id, ClienteDto clienteDto);
+        Task<int> Add(ClienteCreate clienteCreate);
+        Task<ClienteDto> Update(int id, ClienteUpdate clienteUpdate);
         Task Delete(int id);
         Task<IEnumerable<ClienteDto>> Get();
         Task<ClienteDto> GetById(int id);
