@@ -16,10 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\LocadoraFilmesApi.Service.Application\LocadoraFilmesApi.Service.Application.csproj" />
     <ProjectReference Include="..\LocadoraFilmesApi.Service.CrossCutting\LocadoraFilmesApi.Service.CrossCutting.csproj" />
   </ItemGroup>
 
