@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using LocadoraFilmesApi.Service.Application.Dtos;
 using LocadoraFilmesApi.Service.Application.Exceptions;
+using LocadoraFilmesApi.Service.Application.Extensions;
 using LocadoraFilmesApi.Service.Application.Interfaces;
 using LocadoraFilmesApi.Service.Domain.Entities;
 using LocadoraFilmesApi.Service.Domain.Interfaces;
@@ -95,12 +96,14 @@ namespace LocadoraFilmesApi.Service.Application.Services
         {
             try
             {
-                if (await _clienteRepository.GetById(id) == null)
+                var cliente = await _clienteRepository.GetById(id);
+                if (cliente == null)
                 {
                     throw new KeyNotFoundException("Cliente não existe!");
                 }
 
-                var cliente = _mapper.Map<Cliente>(clienteDto);
+                cliente.ToUpdate(clienteDto);
+
                 var entity = await _clienteRepository.Update(cliente);
                 return _mapper.Map<ClienteDto>(entity);
             }
