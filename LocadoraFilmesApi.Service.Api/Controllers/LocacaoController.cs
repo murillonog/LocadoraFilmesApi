@@ -1,5 +1,6 @@
 ﻿using LocadoraFilmesApi.Service.Application.Dtos;
 using LocadoraFilmesApi.Service.Application.Exceptions;
+using LocadoraFilmesApi.Service.Application.Interfaces;
 using LocadoraFilmesApi.Service.Application.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics.CodeAnalysis;

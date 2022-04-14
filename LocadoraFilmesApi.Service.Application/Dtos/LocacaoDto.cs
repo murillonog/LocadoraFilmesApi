@@ -6,6 +6,9 @@
         public int Id_Cliente { get; set; }
         public int Id_Filme { get; set; }
         public DateTime DataLocacao { get; set; }
-        public DateTime DataDevolucao { get; set; }
+        public DateTime? DataDevolucao { get; set; }
+
+        public string NomeCliente { get; set; }
+        public string TituloFilme { get; set; }
     }
 }

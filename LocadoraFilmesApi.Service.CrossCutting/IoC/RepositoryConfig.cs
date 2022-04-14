@@ -10,6 +10,7 @@ namespace LocadoraFilmesApi.Service.CrossCutting.IoC
         {
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<IFilmeRepository, FilmeRepository>();
+            services.AddScoped<ILocacaoRepository, LocacaoRepository>();
         }
     }
 }

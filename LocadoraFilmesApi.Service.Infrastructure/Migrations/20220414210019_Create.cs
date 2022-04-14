@@ -57,7 +57,7 @@ namespace LocadoraFilmesApi.Service.Infrastructure.Migrations
                     Id_Cliente = table.Column<int>(type: "int", nullable: false),
                     Id_Filme = table.Column<int>(type: "int", nullable: false),
                     DataLocacao = table.Column<DateTime>(type: "DATETIME", nullable: false),
-                    DataDevolucao = table.Column<DateTime>(type: "DATETIME", nullable: false)
+                    DataDevolucao = table.Column<DateTime>(type: "DATETIME", nullable: true)
                 },
                 constraints: table =>
                 {

@@ -7,20 +7,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraFilmesApi.Service.Infrastructure.Repositories
 {
-    public class ClienteRepository : Repository<Cliente>, IClienteRepository
+    public class LocacaoRepository : Repository<Locacao>, ILocacaoRepository
     {
         protected new ApplicationDbContext Db;
-        protected new DbSet<Cliente> DbSet;
-        public ClienteRepository(ApplicationDbContext context) : base(context)
+        protected new DbSet<Locacao> DbSet;
+        public LocacaoRepository(ApplicationDbContext context) : base(context)
         {
             Db = context;
-            DbSet = Db.Set<Cliente>();
+            DbSet = Db.Set<Locacao>();
         }
 
-        public async Task<IEnumerable<Cliente>> GetAtrasados()
+        public async Task<IEnumerable<Locacao>> GetAllLocacoes()
         {
             return await Db.Database.GetDbConnection()
-                .QueryAsync<Cliente>(QueryCliente.GetClientesAtrasados);
+                .QueryAsync<Locacao>(QueryLocacao.GetLocacoes);
         }
     }
 }

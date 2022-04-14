@@ -50,7 +50,7 @@ namespace LocadoraFilmesApi.Service.Infrastructure.Repositories
             Db.Dispose();
         }
 
-        public async Task<IEnumerable<TEntity>> GetAll()
+        public virtual async Task<IEnumerable<TEntity>> GetAll()
         {
             return await DbSet.ToListAsync();
         }

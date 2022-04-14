@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace LocadoraFilmesApi.Service.Domain.Entities
 {
@@ -11,6 +12,11 @@ namespace LocadoraFilmesApi.Service.Domain.Entities
         public int Id_Filme { get; set; }
 
         public DateTime DataLocacao { get; set; }
-        public DateTime DataDevolucao { get; set; }
+        public DateTime? DataDevolucao { get; set; }
+
+        [NotMapped]
+        public string NomeCliente { get; set; }
+        [NotMapped]
+        public string TituloFilme { get; set; }
     }
 }

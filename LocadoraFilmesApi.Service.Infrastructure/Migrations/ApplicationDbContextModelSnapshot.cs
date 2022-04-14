@@ -71,7 +71,7 @@ namespace LocadoraFilmesApi.Service.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DataDevolucao")
+                    b.Property<DateTime?>("DataDevolucao")
                         .HasColumnType("DATETIME");
 
                     b.Property<DateTime>("DataLocacao")

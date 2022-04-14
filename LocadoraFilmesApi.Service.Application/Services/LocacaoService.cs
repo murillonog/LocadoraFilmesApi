@@ -19,8 +19,8 @@ namespace LocadoraFilmesApi.Service.Application.Services
         private readonly ILocacaoRepository _locacaoRepository;
 
         public LocacaoService(
-            ILogger<LocacaoService> logger, 
-            IMapper mapper, 
+            ILogger<LocacaoService> logger,
+            IMapper mapper,
             ILocacaoRepository locacaoRepository)
         {
             _logger = logger;
@@ -67,7 +67,7 @@ namespace LocadoraFilmesApi.Service.Application.Services
         {
             try
             {
-                var list = await _locacaoRepository.GetAll();
+                var list = await _locacaoRepository.GetAllLocacoes();
                 return _mapper.Map<IEnumerable<LocacaoDto>>(list);
             }
             catch (Exception exception)

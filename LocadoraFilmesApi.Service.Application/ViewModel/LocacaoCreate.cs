@@ -12,6 +12,5 @@ namespace LocadoraFilmesApi.Service.Application.ViewModel
         public int Id_Filme { get; set; }
         [Required]
         public DateTime DataLocacao { get; set; }
-        public DateTime DataDevolucao { get; set; }
     }
 }

@@ -4,5 +4,6 @@ namespace LocadoraFilmesApi.Service.Domain.Interfaces
 {
     public interface ILocacaoRepository : IRepository<Locacao>
     {
+        Task<IEnumerable<Locacao>> GetAllLocacoes();
     }
 }

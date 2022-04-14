@@ -10,7 +10,6 @@ namespace LocadoraFilmesApi.Service.Application.ViewModel
         public string Nome { get; set; }
         [Required]
         public string Cpf { get; set; }
-        [Required]
-        public DateTime DataNascimento { get; set; }
+        public DateTime? DataNascimento { get; set; }
     }
 }

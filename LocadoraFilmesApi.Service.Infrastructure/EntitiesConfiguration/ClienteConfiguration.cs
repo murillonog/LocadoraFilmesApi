@@ -10,7 +10,8 @@ namespace LocadoraFilmesApi.Service.Infrastructure.EntitiesConfiguration
     {
         public void Configure(EntityTypeBuilder<Cliente> builder)
         {
-            EntityBaseConfiguration<Cliente>.Configure(builder);
+            builder.Property(e => e.Id)
+                .ValueGeneratedOnAdd();
 
             builder.Property(c => c.Nome)
                 .HasColumnType("VARCHAR")

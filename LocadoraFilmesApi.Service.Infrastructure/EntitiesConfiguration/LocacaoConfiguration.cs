@@ -10,21 +10,23 @@ namespace LocadoraFilmesApi.Service.Infrastructure.EntitiesConfiguration
     {
         public void Configure(EntityTypeBuilder<Locacao> builder)
         {
-            EntityBaseConfiguration<Locacao>.Configure(builder);
+            builder.Property(e => e.Id)
+                .ValueGeneratedOnAdd();
 
             //Relationships
             builder.HasOne(x => x.Cliente)
-                    .WithMany(x => x.Locacao)
-                    .HasForeignKey(x => x.Id_Cliente)
-                    .IsRequired();
+                .WithMany(x => x.Locacao)
+                .HasForeignKey(x => x.Id_Cliente)
+                .IsRequired();
 
             builder.HasOne(x => x.Filme)
-                    .WithMany(x => x.Locacao)
-                    .HasForeignKey(x => x.Id_Filme)
-                    .IsRequired();
+                .WithMany(x => x.Locacao)
+                .HasForeignKey(x => x.Id_Filme)
+                .IsRequired();
 
             builder.Property(c => c.DataLocacao)
-                .HasColumnType("DATETIME");
+                .HasColumnType("DATETIME")
+                .IsRequired();
 
             builder.Property(c => c.DataDevolucao)
                 .HasColumnType("DATETIME");
