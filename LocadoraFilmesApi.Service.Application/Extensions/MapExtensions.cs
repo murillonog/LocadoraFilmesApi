@@ -1,4 +1,5 @@
-﻿using LocadoraFilmesApi.Service.Application.Dtos;
+﻿using ClosedXML.Excel;
+using LocadoraFilmesApi.Service.Application.Dtos;
 using LocadoraFilmesApi.Service.Application.ViewModel;
 using LocadoraFilmesApi.Service.Domain.Entities;
 using Microsoft.AspNetCore.Http;
@@ -72,8 +73,59 @@ namespace LocadoraFilmesApi.Service.Application.Extensions
                     });
                 }
             }
-
             return listaFilmes;
+        }
+
+        public static MemoryStream ToMemoryStream(this IEnumerable<ClienteDto> listaCliente)
+        {
+            using var workbook = new XLWorkbook();
+            var worksheet = workbook.Worksheets.Add("Clientes em Atraso");
+            var currentRow = 1;
+
+            worksheet.Cell(currentRow, 1).Value = "Id";
+            worksheet.Cell(currentRow, 2).Value = "Nome";
+            worksheet.Cell(currentRow, 3).Value = "Cpf";
+            worksheet.Cell(currentRow, 4).Value = "Data Nascimento";
+
+            foreach (var cliente in listaCliente)
+            {
+                currentRow++;
+                worksheet.Cell(currentRow, 1).Value = cliente.Id;
+                worksheet.Cell(currentRow, 2).Value = cliente.Nome;
+                worksheet.Cell(currentRow, 3).Value = cliente.Cpf;
+                worksheet.Cell(currentRow, 4).Value = cliente.DataNascimento.ToString("dd/MM/yyyy");
+            }
+
+            using var memory = new MemoryStream();
+            workbook.SaveAs(memory);
+
+            return memory;
+        }
+
+        public static MemoryStream ToMemoryStream(this IEnumerable<FilmeDto> listaFilmes)
+        {
+            using var workbook = new XLWorkbook();
+            var worksheet = workbook.Worksheets.Add("Clientes em Atraso");
+            var currentRow = 1;
+
+            worksheet.Cell(currentRow, 1).Value = "Id";
+            worksheet.Cell(currentRow, 2).Value = "Titulo";
+            worksheet.Cell(currentRow, 3).Value = "Classificação";
+            worksheet.Cell(currentRow, 4).Value = "Lançamento";
+
+            foreach (var filme in listaFilmes)
+            {
+                currentRow++;
+                worksheet.Cell(currentRow, 1).Value = filme.Id;
+                worksheet.Cell(currentRow, 2).Value = filme.Titulo;
+                worksheet.Cell(currentRow, 3).Value = filme.ClassificacaoIndicativa;
+                worksheet.Cell(currentRow, 4).Value = filme.Lancamento;
+            }
+
+            using var memory = new MemoryStream();
+            workbook.SaveAs(memory);
+
+            return memory;
         }
     }
 }

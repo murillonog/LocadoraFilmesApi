@@ -4,10 +4,10 @@ namespace LocadoraFilmesApi.Service.Application.Interfaces
 {
     public interface IRelatorioService
     {
-        Task<XLWorkbook> ClientesEmAtraso();
-        Task<XLWorkbook> FilmesNuncaAlugados();
-        Task<XLWorkbook> Top5MaisAlugados();
-        Task<XLWorkbook> Top3MenosAlugados();
-        Task<XLWorkbook> SegundoClienteMaisAlugou();
+        Task<MemoryStream> ClientesEmAtraso();
+        Task<MemoryStream> FilmesNuncaAlugados();
+        Task<MemoryStream> Top5MaisAlugados();
+        Task<MemoryStream> Top3MenosAlugados();
+        Task<MemoryStream> SegundoClienteMaisAlugou();
     }
 }

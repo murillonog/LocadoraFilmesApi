@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using ClosedXML.Excel;
+using LocadoraFilmesApi.Service.Application.Dtos;
 using LocadoraFilmesApi.Service.Application.Exceptions;
+using LocadoraFilmesApi.Service.Application.Extensions;
 using LocadoraFilmesApi.Service.Application.Interfaces;
 using LocadoraFilmesApi.Service.Domain.Interfaces;
 using LocadoraFilmesApi.Service.Domain.Models;
@@ -28,13 +30,14 @@ namespace LocadoraFilmesApi.Service.Application.Services
             _filmeRepository = filmeRepository;
         }
 
-        public async Task<XLWorkbook> ClientesEmAtraso()
+        public async Task<MemoryStream> ClientesEmAtraso()
         {
             try
             {
-                var result = await _clienteRepository.GetAtrasados();
+                var list = await _clienteRepository.GetAtrasados();
+                var result = _mapper.Map<IEnumerable<ClienteDto>>(list);
 
-                return new XLWorkbook();
+                return result.ToMemoryStream();
             }
             catch (Exception exception)
             {
@@ -44,13 +47,14 @@ namespace LocadoraFilmesApi.Service.Application.Services
             }
         }
 
-        public async Task<XLWorkbook> FilmesNuncaAlugados()
+        public async Task<MemoryStream> FilmesNuncaAlugados()
         {
             try
             {
-                var result = await _filmeRepository.GetNuncaAlugados();
+                var list = await _filmeRepository.GetNuncaAlugados();
+                var result = _mapper.Map<IEnumerable<FilmeDto>>(list);
 
-                return new XLWorkbook();
+                return result.ToMemoryStream();
             }
             catch (Exception exception)
             {
@@ -60,19 +64,55 @@ namespace LocadoraFilmesApi.Service.Application.Services
             }
         }
 
-        public Task<XLWorkbook> SegundoClienteMaisAlugou()
+        public async Task<MemoryStream> SegundoClienteMaisAlugou()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var list = await _clienteRepository.GetSegundoClienteMaisAlugou();
+                var result = _mapper.Map<IEnumerable<ClienteDto>>(list);
+
+                return result.ToMemoryStream();
+            }
+            catch (Exception exception)
+            {
+                var errMsg = new ErrorMessage("01.01", "Erro ao buscar o relatório dos 5 filmes mais alugados.");
+                _logger.LogError(exception, HanddleError<object>.Handle(null, exception, errMsg));
+                throw new ServiceException(errMsg.Code, errMsg.Message, exception);
+            }
         }
 
-        public Task<XLWorkbook> Top3MenosAlugados()
+        public async Task<MemoryStream> Top3MenosAlugados()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var list = await _filmeRepository.GetTop3MenosAlugados();
+                var result = _mapper.Map<IEnumerable<FilmeDto>>(list);
+
+                return result.ToMemoryStream();
+            }
+            catch (Exception exception)
+            {
+                var errMsg = new ErrorMessage("01.01", "Erro ao buscar o relatório dos 5 filmes mais alugados.");
+                _logger.LogError(exception, HanddleError<object>.Handle(null, exception, errMsg));
+                throw new ServiceException(errMsg.Code, errMsg.Message, exception);
+            }
         }
 
-        public Task<XLWorkbook> Top5MaisAlugados()
+        public async Task<MemoryStream> Top5MaisAlugados()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var list = await _filmeRepository.GetTop5Alugados();
+                var result = _mapper.Map<IEnumerable<FilmeDto>>(list);
+
+                return result.ToMemoryStream();
+            }
+            catch (Exception exception)
+            {
+                var errMsg = new ErrorMessage("01.01", "Erro ao buscar o relatório dos 3 filmes menos alugados.");
+                _logger.LogError(exception, HanddleError<object>.Handle(null, exception, errMsg));
+                throw new ServiceException(errMsg.Code, errMsg.Message, exception);
+            }
         }
     }
 }

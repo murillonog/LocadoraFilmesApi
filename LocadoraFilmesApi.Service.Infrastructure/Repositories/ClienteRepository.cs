@@ -22,5 +22,11 @@ namespace LocadoraFilmesApi.Service.Infrastructure.Repositories
             return await Db.Database.GetDbConnection()
                 .QueryAsync<Cliente>(QueryCliente.GetClientesAtrasados);
         }
+
+        public async Task<IEnumerable<Cliente>> GetSegundoClienteMaisAlugou()
+        {
+            return await Db.Database.GetDbConnection()
+                .QueryAsync<Cliente>(QueryCliente.GetSegundoClienteMaisAlugou);
+        }
     }
 }
